@@ -1,0 +1,9 @@
+<div class="container">
+    <app-catalogs-cards
+        *ngFor="let item of card"
+        [icon]="item.icon"
+        [title]="item.title"
+        [text]="item.text"
+        [routerLink]="item.routerLink">
+    </app-catalogs-cards>
+</div>

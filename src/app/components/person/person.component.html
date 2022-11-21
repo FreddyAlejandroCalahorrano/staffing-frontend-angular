@@ -1,0 +1,150 @@
+<div class="container px-5 pt-2">
+
+  <!--#region Add Button and Filters-->
+  <div class="row justify-content-between mb-3">
+    <div class="col-lg-7 pb-2">
+      <pichincha-input [formControl]="filter"
+                       type="text"
+                       full-width="true"
+                       appInputAccessor
+                       placeholder="Buscar">
+      </pichincha-input>
+    </div>
+    <div class="col-lg-3 d-flex align-items-center">
+      <pichincha-button routerLink="/personas/crear"
+                        class="w-100"
+                        size="large"
+                        id="button"
+                        color="primary">
+        <pichincha-icon class="mr-2"
+                        size="20px"
+                        color="error"
+                        weight_color="900"
+                        type="--outlined">
+          person_add
+        </pichincha-icon>
+        Agregar persona
+      </pichincha-button>
+    </div>
+  </div>
+  <!--#endregion-->
+
+  <!--#region Table-->
+  <ng-container *ngIf="(paginationPerson$ | async) as dataTable; else elseError">
+
+    <div class="table-responsive mb-3">
+      <table aria-describedby="table-person" class="table table-borderless">
+        <thead>
+        <tr>
+          <th *ngFor="let column of columns"
+              class="cell-fit">
+            <pichincha-typography variant="bodyText"
+                                  color="grey"
+                                  weight="bold"
+                                  weight_color="500"
+                                  align="inherit">
+              {{column.caption}}
+            </pichincha-typography>
+          </th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <pichincha-typography *ngIf="dataTable.totalElements === 0; else totalElements"
+                              class="text-truncate ml-2 mt-3"
+                              variant="bodyText"
+                              color="blue"
+                              weight="normal"
+                              weight_color="500"
+                              align="inherit">
+          No hay personas registradas
+        </pichincha-typography>
+        <ng-template #totalElements>
+          <tr *ngFor="let person of dataTable.personToList"
+              class="border-bottom">
+            <td>
+              <div class="body-text">
+                {{person.lastName | uppercase}}
+              </div>
+            </td>
+            <td>
+              <div class="body-text">
+                {{person.name | uppercase}}
+              </div>
+            </td>
+            <td>
+              <div class="body-text">
+                {{person.email}}
+              </div>
+            </td>
+            <td>
+              <div class="body-text">
+                {{person.role}}
+              </div>
+            </td>
+            <td>
+              <div class="body-text">
+                {{person.profileName | uppercase}}
+              </div>
+            </td>
+            <td class="d-flex align-items-center" style="gap: 10px">
+              <button class="btn-pichincha md-secondary only-icon sz-small"
+                      (click)="onEditPersonClick(person.id)">
+                <pichincha-icon
+                  size="20px"
+                  color="black"
+                  weight_color="500"
+                  type="&#45;&#45;round">
+                  edit
+                </pichincha-icon>
+              </button>
+              <button class="btn-pichincha md-secondary only-icon sz-small"
+                      (click)="onDeletePersonClick(person)">
+                <pichincha-icon
+                  size="20px"
+                  color="black"
+                  weight_color="500"
+                  type="&#45;&#45;round">
+                  delete
+                </pichincha-icon>
+              </button>
+            </td>
+          </tr>
+        </ng-template>
+        </tbody>
+      </table>
+    </div>
+
+    <app-tb-pagination id="paginationPerson"
+                       [size]="size"
+                       [current]="currentPage"
+                       [total]="dataTable.totalElements"
+                       [optionSize]="optionSize"
+                       (evtRange)="setupPagination($event)"
+    ></app-tb-pagination>
+
+  </ng-container>
+  <!--#endregion-->
+
+  <!--#region Else error table-->
+  <ng-template id="personError" #elseError>
+    <div *ngIf="showSpinner; else elseSpinner" class="d-flex align-items-center justify-content-center">
+      <pichincha-spinner background="#ffdd00" border="4" color="#f3f4f7" size="96"></pichincha-spinner>
+    </div>
+    <ng-template #elseSpinner>
+      <pichincha-typography
+        variant="bodyText"
+        color="blue"
+        weight="normal"
+        weight_color="500"
+      >
+        Es posible que el enlace que seleccionaste esté roto o que se haya eliminado la página.
+      </pichincha-typography>
+    </ng-template>
+  </ng-template>
+  <!--#endregion-->
+
+</div>
+
+
+

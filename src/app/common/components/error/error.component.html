@@ -1,0 +1,31 @@
+<div style="text-align: center" class="no-person" *ngIf="this.controlSpiner ; else message">
+
+  <img *ngIf="showImageError"
+       src="assets/images/users-oops.png"
+       class="align-self-center text-center"
+       alt="Mensaje de error">
+  <pichincha-typography *ngIf="showFirstMessage"
+                        variant="h4"
+                        color="blue"
+                        weight="normal"
+                        weight_color="500"
+                        align="center"
+                        class="mt-4"
+  >
+    ¡Ooops! Página no disponible
+  </pichincha-typography>
+  <pichincha-typography
+    variant="bodyText"
+    color="blue"
+    weight="normal"
+    weight_color="500"
+    align="center"
+  >
+    Es posible que el enlace que seleccionaste esté roto o que se haya <br>eliminado la página.
+  </pichincha-typography>
+</div>
+<ng-template #message>
+  <div class="spinner">
+    <pichincha-spinner background="#ffdd00" border="4" color="#f3f4f7" size="96"></pichincha-spinner>
+  </div>
+</ng-template>

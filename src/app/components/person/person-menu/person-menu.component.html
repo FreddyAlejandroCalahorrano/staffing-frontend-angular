@@ -1,0 +1,38 @@
+<div class="container px-5 pt-2">
+
+  <div class="d-flex justify-content-center mt-3">
+    <ul class="nav nav-tabs col-lg-10">
+      <li class="nav-item" *ngFor="let element of tabElements">
+        <a class="nav-link tab-link cursor-pointer"
+           [class.active]="element.isActive"
+           [class.disabled]="element.isDisabled"
+           (click)="onClickElementTab(element.id)">
+          <pichincha-typography
+            variant="h5"
+            color="blue"
+            weight="normal"
+            weight_color="{{element.isDisabled? 300: 500}}"
+            align="inherit"
+          >
+            {{element.name}}
+          </pichincha-typography>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+
+  <div class="mt-4" [ngSwitch]="currentTabId">
+
+    <div *ngSwitchCase="'DP'">
+      <app-person-form [personEdit]="selectedPerson"
+                       [isEdit]="isEdit">
+      </app-person-form>
+    </div>
+    <div *ngSwitchCase="'H'">
+      <app-person-skills [selectedPerson]="selectedPerson">
+      </app-person-skills>
+    </div>
+  </div>
+
+</div>

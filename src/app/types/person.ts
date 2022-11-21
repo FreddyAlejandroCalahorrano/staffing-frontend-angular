@@ -1,0 +1,21 @@
+export interface Person {
+  id: number,
+  name: string,
+  lastName: string,
+  email: string,
+  phoneNumber: string
+  role: string,
+  user: string,
+  state: string,
+  ultimatix: number,
+  bankEntryDate: string,
+  codeCountry: string,
+  idProvider: number,
+  idSeniority: number,
+  bornDay: number,
+  bornMonth: number,
+  idProfile?: number,
+  idChapter?: number,
+  profileName?: string,
+  chapterName?: string,
+}

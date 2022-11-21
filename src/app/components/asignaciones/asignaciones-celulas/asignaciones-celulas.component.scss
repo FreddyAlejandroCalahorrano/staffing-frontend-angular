@@ -1,0 +1,23 @@
+thead > tr {
+  background-color: rgb(247, 247, 247);
+}
+
+thead > tr > th {
+  vertical-align: middle;
+}
+
+td {
+  vertical-align: middle;
+}
+
+tbody > tr {
+  td {
+    font-family: 'prelo-medium', serif;
+
+  }
+}
+
+.cell-fit {
+  white-space: nowrap;
+  width: 1%;
+}

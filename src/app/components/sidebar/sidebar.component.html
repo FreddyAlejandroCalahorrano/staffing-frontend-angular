@@ -1,0 +1,105 @@
+<nav id="side" class="sidebar"
+     [ngClass]="{'nav-close': closeSidebar, 'dark': isDarkMode}">
+  <header>
+    <div class="image-text">
+      <span class="image">
+          <img src="./assets/images/Banco-Pichincha.png" alt="">
+      </span>
+
+      <div class="text logo-text">
+        <span class="name">Staffing </span>
+        <span class="profession">Banco Pichincha</span>
+      </div>
+    </div>
+    <pichincha-icon
+      class="toggle"
+      size="20px"
+      color="error"
+      weight_color="900"
+      type="&#45;&#45;round"
+      (click)="onClickToggle()">
+      keyboard_arrow_right
+    </pichincha-icon>
+  </header>
+
+  <div class="menu-bar">
+    <div class="menu">
+      <ul>
+        <li class="search-box">
+          <pichincha-icon
+            class="icon"
+            size="25px"
+            color="error"
+            weight_color="900"
+            type="&#45;&#45;round"
+            (click)="onClickInputSearch()">
+            search
+          </pichincha-icon>
+          <input #inputSearch
+                 type="text" placeholder="Buscar...">
+        </li>
+      </ul>
+
+      <ul class="menu-links">
+        <li *ngFor="let item of sidebarItemsFilter">
+          <a id="{{item.value}}"
+             routerLink="{{item.link}}"
+             routerLinkActive="active">
+            <pichincha-icon
+              class="icon"
+              size="25px"
+              color="error"
+              weight_color="900"
+              type="&#45;&#45;round">
+              {{item.icon}}
+            </pichincha-icon>
+            <span class="text nav-text">{{item.value}}</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="bottom-content">
+      <ul>
+        <li class="cursor-pointer" (click)="logout()">
+          <a id="exitButton">
+            <pichincha-icon
+              class="icon"
+              size="25px"
+              color="error"
+              weight_color="900"
+              type="&#45;&#45;round">
+              exit_to_app
+            </pichincha-icon>
+            <span class="text nav-text">Cerrar Sesión</span>
+          </a>
+        </li>
+        <li class="mode" (click)="onClickToggleSwitch()">
+          <div class="sun-moon">
+            <pichincha-icon *ngIf="isDarkMode"
+                            class="icon"
+                            size="25px"
+                            color="white"
+                            weight_color="900"
+                            type="&#45;&#45;round">
+              brightness_2
+            </pichincha-icon>
+            <pichincha-icon *ngIf="!isDarkMode"
+                            class="icon"
+                            size="25px"
+                            color="darkGrey"
+                            weight_color="900"
+                            type="&#45;&#45;round">
+              wb_sunny
+            </pichincha-icon>
+          </div>
+          <span class="mode-text text">{{ isDarkMode ? 'Light Mode' : 'Dark Mode' }}</span>
+          <div class="toggle-switch">
+            <span class="switch"></span>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+</nav>

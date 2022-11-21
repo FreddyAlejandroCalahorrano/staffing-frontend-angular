@@ -1,0 +1,25 @@
+thead > tr {
+  background-color: rgb(247, 247, 247);
+}
+
+thead > tr > th {
+  vertical-align: middle;
+}
+
+td {
+  vertical-align: middle;
+  font-family: 'prelo-medium', serif;
+
+  &.ajust-content {
+    white-space: nowrap;
+    width: 1%;
+  }
+}
+
+.body-text {
+  max-width: 150px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  font-family: 'prelo-medium', serif
+}

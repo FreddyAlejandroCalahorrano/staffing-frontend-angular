@@ -1,0 +1,17 @@
+.page-link {
+  border-radius: 0.3em;
+  color: black;
+  padding: 0.43em 0.8em;
+  border: 1px solid #b7b7b9;
+}
+
+.page-link:hover {
+  cursor: pointer;
+  border: 1px solid var(--darkGrey500);
+}
+
+.my-active {
+  border-color: var(--info);
+  -webkit-box-shadow: inset 0 0 0 0.07em var(--info);
+}
+

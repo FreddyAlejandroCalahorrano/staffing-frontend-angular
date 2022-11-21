@@ -1,0 +1,88 @@
+<div class="bp-select" (keyup.enter)="openContainer()">
+
+  <!--#region Label -->
+  <div class="label" *ngIf="label">
+    <pichincha-typography variant="smallText"
+                          color="darkGrey"
+                          class="label"
+                          weight="normal">
+      {{label}}
+    </pichincha-typography>
+
+    <pichincha-tooltip *ngIf="tooltip"
+                       style="margin-left: .3rem;"
+                       position="top"
+                       text-align="center">
+      <span slot="item-text"> {{tooltip}} </span>
+      <span slot="item-body">
+      <pichincha-icon size="15px"
+                      color="darkGrey"
+                      type="--sharp"
+                      weight_color="400">
+                    info
+                </pichincha-icon>
+    </span>
+    </pichincha-tooltip>
+  </div>
+  <!--#endregion -->
+
+  <div class="bp-select__input-container {{state}}"
+       [ngClass]="{ 'no-list':!isOpen, 'focus': isOpen }"
+       tabindex="0"
+  >
+
+    <div class="bp-select__input-child {{size}} {{state}}"
+         (click)="openContainer()">
+
+      <label class="bp-select__list-item__label bp-select__text-overflow">
+        {{this.itemSelected ? this.itemSelected[displayExpr] : this.placeholder}}
+      </label>
+      <pichincha-icon class="bp-select__icon-arrow-down bp-ml-4">
+        arrow_drop_down
+      </pichincha-icon>
+
+    </div>
+    <div [ngStyle]="{'display': isSearcheable && isOpen? 'block':'none'}"
+         class="container-search">
+      <input #searchElement
+             type="text"
+             placeholder="Buscar..."
+             (click)="$event.stopPropagation()">
+    </div>
+
+    <div class="bp-select__list-container"
+         [ngStyle]="{'display': isOpen? 'block':'none', 'padding': '0 !important'}">
+      <cdk-virtual-scroll-viewport itemSize="32"
+                                   [style.height.px]="visibleOptions * 32">
+
+        <div *cdkVirtualFor="let item of items$ | async; let idx= index"
+             id="option_{{idx}}"
+             class="bp-select__list-item cursor-pointer"
+             [ngClass]="{ 'bp-select__list-item-select': isActive(item)}"
+             (click)="handleClick(item)">
+          <label
+            class="bp-select__list-item__label bp-select__text-overflow bp-select--medium bp-select--smallText"
+          >
+            {{item[displayExpr]}}
+          </label>
+          <pichincha-icon *ngIf="isActive(item)"
+                          size="16px" color="blue"
+                          class="bp-select__icon-arrow-down bp-ml-4">
+            check
+          </pichincha-icon>
+        </div>
+
+      </cdk-virtual-scroll-viewport>
+    </div>
+
+  </div>
+
+  <pichincha-typography variant="tinyText"
+                        color="error"
+                        style="display: inline-block;"
+                        weight="normal"
+                        weight-color="400">
+    {{errorHelper}}
+  </pichincha-typography>
+
+</div>

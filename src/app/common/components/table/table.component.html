@@ -1,0 +1,91 @@
+<div class="d-flex justify-content-end">
+  <app-custom-input type="text"
+                    [showLabel]="false"
+                    placeholder="Buscar"
+                    ngDefaultControl
+                    [formControl]="searchControl"
+  ></app-custom-input>
+</div>
+
+<ng-container *ngIf="(obsItems$ | async )  as tbody ">
+  <div class="table-responsive">
+    <table aria-describedby="table-comp" class="table table-borderless ">
+      <thead>
+      <tr>
+        <th *ngFor="let column of headers"
+            class="header">
+          {{column.caption}}
+        </th>
+        <th class="header center" *ngIf="allActions">
+          Acciones
+        </th>
+      </tr>
+      </thead>
+
+      <tbody>
+
+      <tr *ngFor="let row of tbody.items | slice : pagination.start: pagination.end; trackBy: trackById">
+
+        <td *ngFor="let column of headers">
+          {{row[column.dataField]}}
+        </td>
+
+        <td *ngIf="allActions"
+            data-actions
+            style="display: flex; justify-content: center;">
+
+
+          <pichincha-icon size="medium"
+                          (click)="displayContextMenu($event, row)"
+                          class="cursor-pointer"
+                          color="error"
+                          weight_color="900"
+                          type="--outlined">
+            more_vert
+          </pichincha-icon>
+
+        </td>
+      </tr>
+
+      <ng-template #noData>
+        <tr>
+          <pichincha-typography class="text-truncate ml-2 mt-3"
+                                variant="bodyText"
+                                color="blue"
+                                weight="normal"
+                                weight_color="500"
+                                align="inherit">
+            No hay registros
+          </pichincha-typography>
+        </tr>
+      </ng-template>
+
+      </tbody>
+
+    </table>
+  </div>
+
+  <!--#region FOOTER -->
+  <div class="table-footer">
+    <div class="table-footer-results">
+      {{tbody.items.length}} Resultados
+    </div>
+
+    <ng-container *ngIf="tbody.items.length > pageSizeSelect">
+      <app-tb-pagination [showResults]="false"
+                         [total]="tbody.items.length"
+                         [size]="pageSizeSelect"
+                         [current]="tbody.current"
+                         [optionSize]="optionSize"
+                         (evtRange)="setRange($event)"
+      ></app-tb-pagination>
+    </ng-container>
+  </div>
+  <!--#endregion -->
+</ng-container>
+
+<app-context-menu *ngIf="isDisplayContextMenu"
+                  [ngStyle]="rightClickMenuStyle"
+                  [contextMenuItems]="rightClickMenuItems"
+                  (contextMenuItemClick)="handleMenuItemClick($event)"
+></app-context-menu>

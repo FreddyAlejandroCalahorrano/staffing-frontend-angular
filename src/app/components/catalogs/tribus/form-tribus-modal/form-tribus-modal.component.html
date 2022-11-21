@@ -1,0 +1,179 @@
+<div class="modal-header">
+
+  <pichincha-typography
+    variant="h4"
+    color="blue"
+    weight="normal"
+    weight_color="500"
+    align="inherit"
+    class="modal-title w-100">
+    {{titleModal}}
+  </pichincha-typography>
+  <button id="btn-close-form-tribus" type="button" class="close" aria-label="Close" (click)="close()">&times;</button>
+</div>
+
+<form [formGroup]="tribusFormGroup" (ngSubmit)="onSubmit()">
+  <div id="btn-close-form-tribus" class="modal-body">
+
+    <!--#region nombre-->
+    <div class="row m-0">
+      <div class="col-md  text-truncate p-1 m-1">
+        <app-custom-input
+          id="inputName"
+          type="text"
+          [fullWidth]="true"
+          ngDefaultControl
+          formControlName="tribuName"
+          placeholder=""
+          label="Nombre *"
+          [maxLength]="50"
+          size="medium textUper">
+        </app-custom-input>
+        <div class="col-errors-name"
+             *ngIf="tribuName?.invalid && (tribuName?.dirty || tribuName?.touched)">
+          <pichincha-typography
+            class="text-error"
+            *ngIf="!!tribuName?.errors?.['required']"
+            variant="tinyText"
+            color="error"
+            weight="normal"
+            weight_color="500"
+            align="inherit"
+          >
+            Nombre es requerido.
+          </pichincha-typography>
+          <pichincha-typography
+            class="text-error"
+            *ngIf="!!tribuName?.errors?.['maxlength']"
+            variant="tinyText"
+            color="error"
+            weight="normal"
+            weight_color="500"
+            align="inherit"
+          >
+            Nombre debe tener un máximo de 50 caracteres.
+          </pichincha-typography>
+          <pichincha-typography
+            class="text-error"
+            *ngIf="!!tribuName?.errors?.['validateTribuName']"
+            variant="tinyText"
+            color="error"
+            weight="normal"
+            weight_color="500"
+            align="inherit"
+          >
+            {{tribuName?.errors?.['validateTribuName']}}
+          </pichincha-typography>
+        </div>
+      </div>
+    </div>
+    <!--#endregion-->
+
+    <div class="row m-0">
+      <div class="col-md  text-truncate p-1 m-1">
+        <pichincha-input label="Descripción"
+                         id="inputDescription"
+                         type="text"
+                         full-width="true"
+                         ngDefaultControl
+                         formControlName="tribuDescription"
+                         full-width="true"
+                         type="text"
+                         idElement="inputCreationDate"
+                         max-length=256
+        ></pichincha-input>
+        <div class="col-errors-name"
+             *ngIf="tribuDescription?.invalid && (tribuDescription?.dirty || tribuDescription?.touched)">
+          <pichincha-typography
+            class="text-error"
+            *ngIf="!!tribuDescription?.errors?.['maxLength']"
+            variant="tinyText"
+            color="error"
+            weight="normal"
+            weight_color="500"
+            align="inherit"
+          >
+            Nombre debe tener un máximo de 256 caracteres.
+          </pichincha-typography>
+        </div>
+      </div>
+    </div>
+
+    <!--#region fecha-creacion y fecha-finalizacion-->
+    <div class="row m-0">
+      <div class="col-md text-truncate p-1 m-1">
+        <pichincha-input id="inputCreationDate"
+                         label="Fecha de creación *"
+                         ngDefaultControl
+                         formControlName="tribuCreationDate"
+                         full-width="true"
+                         type="date"
+                         idElement="inputCreationDate"
+        ></pichincha-input>
+        <div class="col-errors-name"
+             *ngIf="tribuCreationDate?.invalid && (tribuCreationDate?.dirty || tribuCreationDate?.touched)">
+          <pichincha-typography
+            class="text-error"
+            *ngIf="!!tribuCreationDate?.errors?.['required']"
+            variant="tinyText"
+            color="error"
+            weight="normal"
+            weight_color="500"
+            align="inherit"
+          >
+            La fecha de creación es requerida.
+          </pichincha-typography>
+        </div>
+      </div>
+      <div class="col-md text-truncate p-1 m-1">
+        <pichincha-input
+          id="inputFinishDate"
+          label="Fecha de finalización"
+          ngDefaultControl
+          formControlName="tribuFinishDate"
+          full-width="true"
+          type="date"
+          idElement="inputFinishDate">
+        </pichincha-input>
+      </div>
+    </div>
+    <!--#endregion-->
+
+    <div class="row m-0 p-1 m-1">
+      <pichincha-typography
+        class="text-error"
+        *ngIf="tribusFormGroup.hasError('ValidateDate')"
+        variant="tinyText"
+        color="error"
+        weight="normal"
+        weight_color="500"
+        align="inherit"
+      >
+        La fecha de finalización debe ser mayor a la fecha de creación.
+      </pichincha-typography>
+    </div>
+
+  </div>
+  <div class="modal-footer">
+
+    <pichincha-button
+      size="large"
+      color="secondary"
+      (clickbutton)="close()">
+      Cancelar
+    </pichincha-button>
+    <pichincha-button
+      type="submit"
+      size="large"
+      [disabled]="tribusFormGroup.invalid"
+      color="primary"
+      (clickbutton)="onSubmit()">
+      Aceptar
+    </pichincha-button>
+
+
+  </div>
+</form>
+
+
+

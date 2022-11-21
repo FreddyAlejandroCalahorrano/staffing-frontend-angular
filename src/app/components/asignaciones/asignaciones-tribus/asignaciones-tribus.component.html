@@ -1,0 +1,152 @@
+<div class="container px-5 pt-2">
+
+  <!--#region Assign Button-->
+  <div class="row justify-content-end mb-2">
+    <div class="col-lg-4" style="margin-top:0.5em">
+      <pichincha-button (clickbutton)="onAddOrEditPersonTribu()"
+                        class="w-100"
+                        size="large"
+                        id="button"
+                        color="primary">
+        <pichincha-icon class="mr-2"
+                        size="20px"
+                        color="error"
+                        weight_color="900"
+                        type="--outlined">
+          add
+        </pichincha-icon>
+        Asignar
+      </pichincha-button>
+    </div>
+  </div>
+  <!--#endregion -->
+
+  <!--#region Filters-->
+  <div class="row justify-content-between mb-3">
+    <div class="col-lg-4" style="margin-top: 0.5em">
+      <app-p-select [items]="tribus$ | async"
+                    [formControl]="tribuFilter"
+                    [search]="true"
+                    displayExpr="tribuName"
+                    valueExpr="id"
+                    placeholder="Selecciona una opción"
+      ></app-p-select>
+    </div>
+    <div class="col-lg-4">
+      <app-custom-input ngDefaultControl
+                        [formControl]="personFilter"
+                        [fullWidth]="true"
+                        [showLabel]="false"
+                        placeholder="Buscar"
+      ></app-custom-input>
+    </div>
+  </div>
+  <!--#endregion -->
+
+  <!--#region Table-->
+  <ng-container *ngIf="(paginationPersonTribu$ | async) as dataTable; else elseError">
+
+    <div class="table-responsive mb-3">
+
+      <table aria-describedby="table-asignaciones-tribus" class="table table-borderless">
+        <thead>
+        <tr>
+          <th *ngFor="let column of columns" class="cell-fit">
+            <pichincha-typography variant="bodyText"
+                                  color="grey"
+                                  weight="bold"
+                                  weight_color="500"
+                                  align="inherit">
+              {{column.caption}}
+            </pichincha-typography>
+          </th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <pichincha-typography *ngIf="dataTable.totalElements === 0; else totalElements"
+                              class="text-truncate ml-2 mt-3"
+                              variant="bodyText"
+                              color="blue"
+                              weight="normal"
+                              weight_color="500"
+                              align="inherit">
+          No hay asignaciones registradas
+        </pichincha-typography>
+        <ng-template #totalElements>
+          <tr *ngFor="let personTribu of dataTable.personTribuToList"
+              class="border-bottom">
+            <td class="ajust-content">
+              {{personTribu.tribuTo.tribuName}}
+            </td>
+            <td class="ajust-content">
+              {{(personTribu.personTo.name + ' ' + personTribu.personTo.lastName) | uppercase}}
+            </td>
+            <td>
+              <div class="body-text">
+                {{personTribu.typeRoleLeader}}
+              </div>
+            </td>
+            <td>
+              <div class="body-text">
+                {{personTribu.assignmentStartDate | date: 'dd-MM-YYYY'}}
+              </div>
+            </td>
+            <td class="d-flex align-items-center gap-10">
+              <button (click)="onAddOrEditPersonTribu(personTribu.id)"
+                      class="btn-pichincha md-secondary only-icon sz-small">
+                <pichincha-icon size="20px"
+                                color="black"
+                                weight_color="500"
+                                type="&#45;&#45;round">
+                  edit
+                </pichincha-icon>
+              </button>
+              <button (click)="onDeletePersonTribuClick(personTribu)"
+                      class="btn-pichincha md-secondary only-icon sz-small">
+                <pichincha-icon id="closeAsignacionTribu"
+                                size="20px"
+                                color="black"
+                                weight_color="500"
+                                type="&#45;&#45;round">
+                  exit_to_app
+                </pichincha-icon>
+              </button>
+            </td>
+          </tr>
+        </ng-template>
+        </tbody>
+      </table>
+
+    </div>
+
+    <app-tb-pagination id="paginationAsignacionesTribus"
+                       [size]="size"
+                       [current]="currentPage"
+                       [total]="dataTable.totalElements"
+                       [optionSize]="optionSize"
+                       (evtRange)="setupPagination($event)"
+    ></app-tb-pagination>
+
+  </ng-container>
+  <!--#endregion -->
+
+  <!--#region Else error Table-->
+  <ng-template id="asignacionesTribuError" #elseError>
+    <div *ngIf="showSpinner; else elseSpinner" class="d-flex align-items-center justify-content-center">
+      <pichincha-spinner background="#ffdd00" border="4" color="#f3f4f7" size="96"></pichincha-spinner>
+    </div>
+    <ng-template #elseSpinner>
+      <pichincha-typography
+        variant="bodyText"
+        color="blue"
+        weight="normal"
+        weight_color="500"
+      >
+        Es posible que el enlace que seleccionaste esté roto o que se haya eliminado la página.
+      </pichincha-typography>
+    </ng-template>
+  </ng-template>
+  <!--#endregion -->
+
+</div>

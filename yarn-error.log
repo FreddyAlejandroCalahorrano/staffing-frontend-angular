@@ -1,0 +1,101 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Users\Freddy-PC2\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js install
+
+PATH: 
+  C:\Python39\Scripts\;C:\Python39\;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Intel\iCLS Client\;C:\Program Files\Intel\iCLS Client\;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\dotnet\;C:\Program Files\Git\cmd;C:\Program Files\Docker\Docker\resources\bin;C:\ProgramData\DockerDesktop\version-bin;C:\apache-maven-3.8.2\bin;C:\Users\Freddy-PC2\sonarqube-9.0.1.46107\bin\windows-x86-64;C:\ProgramData\chocolatey\bin;C:\xampp\php;C:\ProgramData\ComposerSetup\bin;C:\Program Files\nodejs\;C:\Users\Freddy-PC2\AppData\Local\Microsoft\WindowsApps;C:\Users\Freddy-PC2\AppData\Roaming\Composer\vendor\bin;C:\Users\Freddy-PC2\AppData\Roaming\npm;C:\Users\Freddy-PC2\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\Freddy-PC2\AppData\Local\gitkraken\bin
+
+Yarn version: 
+  1.22.17
+
+Node version: 
+  16.13.1
+
+Platform: 
+  win32 x64
+
+Trace: 
+  Error: Failed to replace env in config: ${STEP_DESIGN_SYSTEM_CREDENTIALS}
+      at C:\Users\Freddy-PC2\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:99004:13
+      at String.replace (<anonymous>)
+      at envReplace (C:\Users\Freddy-PC2\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:98999:16)
+      at Function.normalizeConfig (C:\Users\Freddy-PC2\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:31930:69)
+      at NpmRegistry.<anonymous> (C:\Users\Freddy-PC2\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:31960:34)
+      at Generator.next (<anonymous>)
+      at step (C:\Users\Freddy-PC2\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:310:30)
+      at C:\Users\Freddy-PC2\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:321:13
+
+npm manifest: 
+  {
+    "name": "stf-spa-staffing",
+    "version": "1.1.2",
+    "scripts": {
+      "ng": "ng",
+      "start": "ng serve -c local",
+      "start:dev": "ng serve -c dev",
+      "start:cert": "ng serve -c cert",
+      "start:prod": "ng serve -c production",
+      "build": "ng build -c local",
+      "build:production": "ng build -c production --base-href /staffing/ --deploy-url /staffing/ && mv dist/staffing/index.html ./dist",
+      "build:cert": "ng build -c cert",
+      "build:development": "ng build -c dev --base-href /staffing/ --deploy-url /staffing/ && mv dist/staffing/index.html ./dist",
+      "build:staging": "ng build -c cert --base-href /staffing/ --deploy-url /staffing/ && mv dist/staffing/index.html ./dist",
+      "watch": "ng build --watch --configuration development",
+      "test": "ng test",
+      "test:coverage": "ng test --coverage",
+      "test:deploy": "ng test --watch=false --coverage",
+      "test:watch": "ng test --watch",
+      "coverage": "ng test --watch=false --coverage",
+      "jest": "jest",
+      "jest:watch": "jest --watch",
+      "lint": "ng lint"
+    },
+    "private": true,
+    "dependencies": {
+      "@angular/animations": "~12.2.0",
+      "@angular/cdk": "^12.2.13",
+      "@angular/common": "~12.2.0",
+      "@angular/compiler": "~12.2.0",
+      "@angular/core": "~12.2.0",
+      "@angular/forms": "~12.2.0",
+      "@angular/platform-browser": "~12.2.0",
+      "@angular/platform-browser-dynamic": "~12.2.0",
+      "@angular/router": "~12.2.0",
+      "@azure/msal-angular": "^2.1.0",
+      "@azure/msal-browser": "^2.21.0",
+      "@pichincha/angular-sdk": "1.0.17",
+      "@pichincha/bb-commons": "1.0.15",
+      "@pichincha/typescript-sdk": "1.0.23",
+      "file-saver": "^2.0.2",
+      "ngx-build-plus": "^12.2.0",
+      "rxjs": "~6.6.0",
+      "tslib": "^2.3.0",
+      "xng-breadcrumb": "^6.8.3",
+      "zone.js": "~0.11.4"
+    },
+    "devDependencies": {
+      "@angular-builders/jest": "^13.0.3",
+      "@angular-devkit/build-angular": "~12.2.5",
+      "@angular-eslint/builder": "12.5.0",
+      "@angular-eslint/eslint-plugin": "12.5.0",
+      "@angular-eslint/eslint-plugin-template": "12.5.0",
+      "@angular-eslint/schematics": "12.5.0",
+      "@angular-eslint/template-parser": "12.5.0",
+      "@angular/cli": "~12.2.5",
+      "@angular/compiler-cli": "~12.2.0",
+      "@faker-js/faker": "^7.0.1",
+      "@types/file-saver": "^2.0.5",
+      "@types/jest": "^27.0.0",
+      "@types/node": "^12.11.1",
+      "@typescript-eslint/eslint-plugin": "4.28.2",
+      "@typescript-eslint/parser": "4.28.2",
+      "eslint": "^7.26.0",
+      "jest": "^27.0.0",
+      "typescript": "~4.3.5"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

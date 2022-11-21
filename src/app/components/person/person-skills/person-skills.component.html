@@ -1,0 +1,119 @@
+<div class="container col-lg-10">
+
+  <!--#region Add Button-->
+  <div class="row justify-content-end">
+    <div class="col-lg-4" style="margin-top:0.5em">
+      <pichincha-button
+        type="text"
+        color="primary"
+        (click)="onAddPersonSkill()">
+        <pichincha-icon
+          class="mr-2"
+          size="18px"
+          color="error"
+          weight_color="900"
+          type="--outlined"
+        >
+          add
+        </pichincha-icon>
+        Agregar
+      </pichincha-button>
+    </div>
+  </div>
+  <!--#endregion-->
+
+  <!--#region Filters-->
+  <div class="row justify-content-end mb-3">
+    <div class="col-lg-4">
+      <pichincha-input ngDefaultControl
+                       [(ngModel)]="searchNameSkill"
+                       full-width="true"
+                       type="text"
+                       placeholder="Buscar"
+                       max-length="21">
+      </pichincha-input>
+    </div>
+  </div>
+  <!--#endregion-->
+
+  <!--#region Table-->
+  <ng-container *ngIf="(personSkills$ | async) as dataTable; else elseError">
+
+    <div class="table-responsive mb-3">
+      <table aria-describedby="table-person-skills" class="table table-borderless">
+        <thead>
+        <tr>
+          <th *ngFor="let column of columns"
+              class="cell-fit">
+            <pichincha-typography variant="bodyText"
+                                  color="grey"
+                                  weight="bold"
+                                  weight_color="500"
+                                  align="inherit">
+              {{column.caption}}
+            </pichincha-typography>
+          </th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <pichincha-typography *ngIf="dataTable.length === 0; else totalElements"
+                              class="text-truncate ml-2 mt-3"
+                              variant="bodyText"
+                              color="blue"
+                              weight="normal"
+                              weight_color="500"
+                              align="inherit">
+          No hay habilidades registradas
+        </pichincha-typography>
+        <ng-template #totalElements>
+          <tr *ngFor="let skills of dataTable | filterSkill: searchNameSkill : searchTypeSkills"
+              class="border-bottom">
+            <td style="width: 150px;">
+              <div class="body-text">
+                {{skills.typeSkill}}
+              </div>
+            </td>
+            <td>
+              <div class="body-text">
+                {{skills.nameSkill}}
+              </div>
+            </td>
+            <td class="d-flex align-items-center">
+              <button class="btn-pichincha md-secondary only-icon sz-small"
+                      (click)="onDeletePersonSkill(skills)">
+                <pichincha-icon
+                  size="20px"
+                  color="black"
+                  weight_color="500"
+                  type="&#45;&#45;round">
+                  delete
+                </pichincha-icon>
+              </button>
+            </td>
+          </tr>
+        </ng-template>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="table-footer-results">
+      {{dataTable.length}} Resultados
+    </div>
+
+  </ng-container>
+  <!--#endregion-->
+
+  <!--#region Else error table-->
+  <ng-template #elseError>
+    <div class="d-flex align-items-center justify-content-center mt-3">
+      <app-error
+        [controlSpiner]="showSpinner">
+      </app-error>
+    </div>
+  </ng-template>
+  <!--#endregion-->
+
+</div>
+
+

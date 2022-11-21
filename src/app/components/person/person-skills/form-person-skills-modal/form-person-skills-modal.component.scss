@@ -1,0 +1,32 @@
+thead > tr {
+  background-color: rgb(247, 247, 247);
+}
+
+thead > tr > th {
+  vertical-align: middle;
+}
+
+td {
+  vertical-align: middle;
+}
+
+@media only screen and (max-width: 600px) {
+  .body-text {
+    max-width: 150px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    font-family: 'prelo-medium', serif
+  }
+}
+
+.body-text {
+  white-space: nowrap;
+  overflow: hidden;
+  font-family: 'prelo-medium', serif
+}
+
+div.table-responsive{
+  overflow-y: scroll;
+  max-height: calc(100vh - 350px);
+}

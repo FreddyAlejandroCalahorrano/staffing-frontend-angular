@@ -1,0 +1,144 @@
+<div class="container pt-2 d-flex flex-column align-items-center container-custom ">
+  <form
+    id="userForm"
+    class=" col-lg-6"
+    [formGroup]="personTribuFormGroup">
+
+    <pichincha-typography
+      class="mb-4 mt-3"
+      variant="h4"
+      color="blue"
+      weight="normal"
+      weight_color="500"
+      align="inherit">
+      Asignación de líderes a Tribus
+    </pichincha-typography>
+
+    <!--#region tribu-->
+
+    <app-p-select label="Tribu *"
+                  formControlName="tribuName"
+                  [items]="tribus"
+                  [search]="true"
+                  valueExpr="id"
+                  displayExpr="tribuName"
+                  [state]="isEdit? 'disabled':'normal'"
+    ></app-p-select>
+    <div *ngIf="tribuName?.invalid && (tribuName?.dirty || tribuName?.touched)">
+      <pichincha-typography
+        class="text-error"
+        *ngIf="!!tribuName?.errors?.['required']"
+        variant="tinyText"
+        color="error"
+        weight="normal"
+        weight_color="500"
+        align="inherit"
+      >
+        La tribu es requerida.
+      </pichincha-typography>
+    </div>
+
+    <!--#endregion-->
+
+    <!--#region person-->
+    <app-custom-input id="tribuSearchButton"
+                      type="text"
+                      ngDefaultControl
+                      formControlName="personName"
+                      placeholder="Buscar"
+                      label="Nombre del líder *"
+                      [showSearchButton]="true"
+                      [state]="isEdit? 'disabled':'normal'"
+                      (clickButton)="onSearchLiderPersonClick()">
+    </app-custom-input>
+
+    <div *ngIf="personName?.invalid && (personName?.dirty || personName?.touched)">
+      <pichincha-typography
+        class="text-error"
+        *ngIf="!!personName?.errors?.['required']"
+        variant="tinyText"
+        color="error"
+        weight="normal"
+        weight_color="500"
+        align="inherit"
+      >
+        La persona es requerida.
+      </pichincha-typography>
+    </div>
+    <!--#endregion-->
+
+    <!--#region tipo rol-->
+    <div style="margin-top: 20px">
+      <app-p-select
+        label="Tipo de rol de líder *"
+        formControlName="typeRoleLeader"
+        [items]="tipoRol"
+        valueExpr="rolName"
+        displayExpr="rolName"
+      ></app-p-select>
+      <div *ngIf="typeRoleLeader?.invalid && (typeRoleLeader?.dirty || typeRoleLeader?.touched)">
+        <pichincha-typography
+          class="text-error"
+          *ngIf="!!typeRoleLeader?.errors?.['required']"
+          variant="tinyText"
+          color="error"
+          weight="normal"
+          weight_color="500"
+          align="inherit"
+        >
+          El tipo de rol del líder es requerido.
+        </pichincha-typography>
+      </div>
+    </div>
+    <!--#endregion-->
+
+    <!--#region fecha-ingreso-->
+    <pichincha-input id="assignmentStartDate"
+                     label="Fecha de Ingreso"
+                     ngDefaultControl
+                     full-width="true"
+                     formControlName="assignmentStartDate"
+                     type="date"
+                     idElement="assignmentStartDate">
+    </pichincha-input>
+    <!--#endregion-->
+
+    <!--#region observation-->
+    <div id="observation" class="mt-4">
+      <pichincha-input label="Observaciones"
+                       id="inputObservation"
+                       type="text"
+                       full-width="true"
+                       ngDefaultControl
+                       formControlName="observation"
+                       full-width="true"
+                       type="text"
+                       idElement="inputObservation"
+                       max-length=256
+      ></pichincha-input>
+    </div>
+    <!--#endregion-->
+
+    <div class="w-100 d-flex justify-content-end" style="margin-top: 20px; gap: 10px">
+      <pichincha-button
+        style="width: 150px"
+        size="large"
+        color="secondary"
+        routerLink="/asignaciones/tribus">
+        Cancelar
+      </pichincha-button>
+
+      <pichincha-button
+        style="width: 150px"
+
+        disabled="{{personTribuFormGroup.invalid}}"
+        size="large"
+        (clickbutton)="onSubmit()"
+        color="primary">
+        Aceptar
+      </pichincha-button>
+    </div>
+
+
+  </form>
+</div>

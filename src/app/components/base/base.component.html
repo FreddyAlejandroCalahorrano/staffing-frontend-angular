@@ -1,0 +1,49 @@
+<app-sidebar [closeSidebar]="isClosed"
+             [isDarkMode]="isDark"
+             (toggleEventEmitter)="onClickToggle($event)">
+</app-sidebar>
+
+<section class="home"
+         [ngClass]="{'nav-close': closeSidebar}">
+
+  <div class="allButFooter">
+    <div class="container px-5 pt-2">
+      <xng-breadcrumb>
+        <ng-container *xngBreadcrumbItem="let breadcrumb">
+          <pichincha-typography
+            variant="bodyText"
+            color="blue"
+            weight="normal"
+            weight_color="500"
+            align="inherit"
+          >
+            {{ breadcrumb }}
+          </pichincha-typography>
+        </ng-container>
+      </xng-breadcrumb>
+    </div>
+
+    <!-- Your page's content goes here, including header, nav, aside, everything -->
+
+    <ng-container *ngIf="notify$">
+      <section *ngIf="(notify$| async) as notify"
+               class="container px-5 pt-2">
+
+        <pichincha-message-bar idElement="global-message"
+                               open="{{notify.open}}"
+                               variant="{{notify.variant}}"
+                               status="{{notify.status}}">
+          {{notify.text}}
+        </pichincha-message-bar>
+
+      </section>
+    </ng-container>
+
+    <router-outlet *ngIf="!isIframe"></router-outlet>
+  </div>
+
+  <app-footer [class]="verifyIfWelcome() ? 'footer-pos' : ''"></app-footer>
+
+</section>
+
+<external-assets></external-assets>

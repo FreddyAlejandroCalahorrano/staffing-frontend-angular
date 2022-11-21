@@ -1,0 +1,112 @@
+<div class="modal-header ">
+  <pichincha-typography
+    variant="h4"
+    color="blue"
+    weight="normal"
+    weight_color="500"
+    align="inherit"
+    class="modal-title w-100">
+    {{titleModal}}
+  </pichincha-typography>
+  <button id="btn-modal-skills" type="button" class="close" aria-label="Close" (click)="close()">&times;</button>
+</div>
+
+<form [formGroup]="skillsFormGroup"
+      (ngSubmit)="onSubmit()"
+      (keyup.enter)="skillsFormGroup.markAllAsTouched()">
+  <div class="modal-body">
+
+    <!--#region nombre-->
+    <div class="row m-0">
+      <div class="col-md  text-truncate p-1">
+        <app-custom-input id="inputName"
+                          label="Nombre *"
+                          ngDefaultControl
+                          formControlName="nameSkill"
+                          [fullWidth]="true"
+                          type="text"
+                          [maxLength]="50"
+                          placeholder="Ej. Angular"
+                          size="medium textUper"
+        ></app-custom-input>
+
+        <div class="errors"
+             *ngIf="nameSkill?.invalid && (nameSkill?.dirty || nameSkill?.touched)">
+          <pichincha-typography
+            class="text-error"
+            *ngIf="!!nameSkill?.errors?.['required']"
+            variant="tinyText"
+            color="error"
+            weight="normal"
+            weight_color="500"
+            align="inherit"
+          >
+            Nombre de habilidad es requerido.
+          </pichincha-typography>
+          <pichincha-typography
+            class="text-error"
+            *ngIf="!!nameSkill?.errors?.['maxlength']"
+            variant="tinyText"
+            color="error"
+            weight="normal"
+            weight_color="500"
+            align="inherit"
+          >
+            Nombre de habilidad debe tener un máximo de 50 caracteres.
+          </pichincha-typography>
+        </div>
+      </div>
+    </div>
+    <!--#endregion-->
+
+    <!--#region tipo-->
+    <div class="row m-0">
+      <div class="col-md p-1 m-1">
+        <app-p-select [items]="listProfile$ | async"
+                      formControlName="idProfile"
+                      label="Tipo *"
+                      valueExpr="id"
+                      displayExpr="nameProfile"
+        ></app-p-select>
+
+        <div class="col-errors-name" style="margin-top: -20px"
+             *ngIf="typeSkill?.invalid && (typeSkill?.dirty || typeSkill?.touched)">
+          <pichincha-typography
+            class="text-error"
+            *ngIf="!!typeSkill?.errors?.['required']"
+            variant="tinyText"
+            color="error"
+            weight="normal"
+            weight_color="500"
+            align="inherit"
+          >
+            Tipo es requerido.
+          </pichincha-typography>
+        </div>
+      </div>
+    </div>
+    <!--#endregion-->
+
+
+
+  </div>
+  <div class="modal-footer">
+
+    <pichincha-button
+      size="large"
+      color="secondary"
+      (clickbutton)="close()">
+      Cancelar
+    </pichincha-button>
+    <pichincha-button
+      type="submit"
+      (clickbutton)="onSubmit()"
+      size="large"
+      [disabled]="skillsFormGroup.invalid"
+      color="primary">
+      Aceptar
+    </pichincha-button>
+
+
+  </div>
+</form>

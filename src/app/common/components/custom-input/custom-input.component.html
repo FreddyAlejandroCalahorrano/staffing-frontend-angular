@@ -1,0 +1,121 @@
+<div
+  class="wrapper {{ state }}"
+  [ngClass]="{ fullWidth: fullWidth, error: hasErrors }"
+>
+  <label [for]="id">
+    <pichincha-typography *ngIf="showLabel"
+                          variant="smallText"
+                          color="darkGrey"
+                          weight="normal">
+      {{ label }}
+    </pichincha-typography>
+
+    <div class="input-container">
+      <span *ngIf="currencyField" class="leading {{ size }}">
+        <pichincha-typography
+          variant="smallText"
+          color="darkGrey"
+          weight="normal"
+        >
+          $
+        </pichincha-typography>
+      </span>
+
+      <input
+        [id]="id"
+        [type]="type"
+        [placeholder]="placeholder"
+        [pattern]="pattern"
+        [attr.maxlength]="maxLength"
+        [autocomplete]="autocomplete"
+        [autofocus]="autofocus"
+        class="{{ size }} {{styleClass}}"
+        [ngClass]="{
+          withLeading: currencyField,
+          withTrailing: percentageField
+        }"
+        [formControl]="formControl"
+        (keypress)="handleEvent($event)"
+        [attr.disabled]="showSearchButton? true:null"
+      />
+
+      <button *ngIf="showSearchButton"
+              type="button"
+              class="btn-pichincha btn-search md-secondary only-icon sz-small"
+              (click)="handleClick()"
+              [disabled]="state == 'disabled'"
+      >
+        <pichincha-icon
+          size="25px"
+          color="blue"
+          weight_color="500"
+          type="round"
+        >
+          search
+        </pichincha-icon>
+      </button>
+
+      <span *ngIf="percentageField" class="trailing {{ size }}">
+        <pichincha-typography
+          variant="smallText"
+          color="darkGrey"
+          weight="bold"
+        >
+          %
+        </pichincha-typography>
+      </span>
+
+      <ng-container *ngIf="showIconStatus">
+        <ng-container *ngIf="state === 'error'">
+          <img
+            class="floatIcon"
+            src="assets/svgs/icon_error.svg"
+            alt="errorIcon"
+            width="200"
+            height="200"
+          />
+        </ng-container>
+        <ng-container *ngIf="state === 'success'">
+          <img
+            class="floatIcon"
+            src="assets/svgs/icon_check.svg"
+            alt="successIcon"
+            width="200"
+            height="200"
+          />
+        </ng-container>
+      </ng-container>
+    </div>
+  </label>
+
+  <div class="wrapper--helper">
+    <ng-container *ngIf="errorHelper || normalHelper">
+      <div class="item" [ngClass]="maxLength ? 'left' : ''">
+        <ng-container *ngIf="hasErrors && errorHelper">
+          <pichincha-typography variant="tinyText" color="error">
+            {{ errorHelper }}
+          </pichincha-typography>
+        </ng-container>
+
+        <ng-container *ngIf="!hasErrors && normalHelper">
+          <pichincha-typography
+            variant="tinyText"
+            color="darkGrey"
+            weight-color="400"
+          >
+            {{ normalHelper }}
+          </pichincha-typography>
+        </ng-container>
+      </div>
+
+      <ng-container *ngIf="showMaxLength && maxLength">
+        <div class="item right">
+          <pichincha-typography variant="tinyText">
+            {{ inputValue ? inputValue?.toString().length : 0 }}
+            /{{ maxLength }}
+          </pichincha-typography>
+        </div>
+      </ng-container>
+    </ng-container>
+  </div>
+</div>

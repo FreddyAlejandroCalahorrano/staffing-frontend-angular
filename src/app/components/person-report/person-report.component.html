@@ -1,0 +1,260 @@
+<div class="container mt-4 px-5 pt-2">
+
+  <div class="row mb-2 d-flex justify-content-between">
+
+    <!--#region Filters -->
+    <div class="col pb-2">
+
+      <section class="row" [formGroup]="filters">
+        <div class="col-12">
+          <div class="d-flex flex-wrap"
+               style="gap: 10px;">
+            <app-p-select-multiple [items]="tribus$ | async"
+                                   label="Tribu"
+                                   style="width: 220px;"
+                                   placeholder="Selecciona una tribu..."
+                                   valueExpr="id"
+                                   displayExpr="tribuName"
+                                   (changeSelect)="tribu.setValue($event)"
+            ></app-p-select-multiple>
+            <app-p-select-multiple [items]="profiles$ | async"
+                                   label="Perfil"
+                                   style="width: 220px;"
+                                   valueExpr="id"
+                                   displayExpr="nameProfile"
+                                   placeholder="Selecciona un rol..."
+                                   (changeSelect)="profile.setValue($event)"
+            ></app-p-select-multiple>
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="d-flex flex-wrap"
+               style="gap: 10px;">
+            <app-p-select-multiple [items]="celulas$ | async"
+                                   label="Célula"
+                                   style="width: 220px;"
+                                   valueExpr="id"
+                                   displayExpr="celulaNameProduct"
+                                   placeholder="Selecciona una célula..."
+                                   (changeSelect)="celula.setValue($event)"
+            ></app-p-select-multiple>
+            <app-p-select-multiple [items]="providers$ | async"
+                                   label="Proveedor"
+                                   style="width: 220px;"
+                                   valueExpr="id"
+                                   displayExpr="providerName"
+                                   placeholder="Selecciona una proveedor..."
+                                   (changeSelect)="provider.setValue($event)"
+            ></app-p-select-multiple>
+          </div>
+        </div>
+        <div class="col-4">
+          <section formGroupName="asignmentStartDate">
+            <pichincha-typography variant="smallText"
+                                  color="darkGrey"
+                                  weight="normal">
+              Fecha Asignación
+            </pichincha-typography>
+            <app-custom-input type="date"
+                              [showLabel]="false"
+                              placeholder="Ej: 2020-02-02"
+                              ngDefaultControl
+                              formControlName="from"
+            ></app-custom-input>
+            <app-custom-input type="date"
+                              [showLabel]="false"
+                              placeholder="Ej: 2020-02-02"
+                              ngDefaultControl
+                              formControlName="to"
+            ></app-custom-input>
+            <div
+              *ngIf="asignmentStartDate?.invalid && (asignmentStartDate?.dirty || asignmentStartDate?.touched)">
+              <pichincha-typography
+                class="text-error"
+                *ngIf="!!asignmentStartDate.errors?.['validateDates']"
+                variant="tinyText"
+                color="error"
+                weight="normal"
+                weight_color="500"
+                align="inherit"
+              >
+                {{asignmentStartDate.errors?.['validateDates']}}
+              </pichincha-typography>
+            </div>
+          </section>
+        </div>
+        <div class="col-4">
+          <section formGroupName="tentativeAsignmentEndDate">
+            <pichincha-typography variant="smallText"
+                                  color="darkGrey"
+                                  weight="normal">
+              Posible fecha de salida
+            </pichincha-typography>
+            <app-custom-input type="date"
+                              [showLabel]="false"
+                              placeholder="Ej: 2020-02-02"
+                              ngDefaultControl
+                              formControlName="from"
+            ></app-custom-input>
+            <app-custom-input type="date"
+                              [showLabel]="false"
+                              placeholder="Ej: 2020-02-02"
+                              ngDefaultControl
+                              formControlName="to"
+            ></app-custom-input>
+            <div
+              *ngIf="tentativeAsignmentEndDate?.invalid && (tentativeAsignmentEndDate?.dirty || tentativeAsignmentEndDate?.touched)">
+              <pichincha-typography
+                class="text-error"
+                *ngIf="!!tentativeAsignmentEndDate.errors?.['validateDates']"
+                variant="tinyText"
+                color="error"
+                weight="normal"
+                weight_color="500"
+                align="inherit"
+              >
+                {{tentativeAsignmentEndDate.errors?.['validateDates']}}
+              </pichincha-typography>
+            </div>
+          </section>
+        </div>
+        <div class="col-4">
+          <pichincha-check-box (clickCheck)="onClickCheckbox($event)" disabled="false" id-element="1" value="1">
+            <pichincha-typography variant="bodyText">
+              No asigandos
+            </pichincha-typography>
+          </pichincha-check-box>
+        </div>
+      </section>
+
+    </div>
+
+    <!--#endregion -->
+    <div class="col-lg-3 mb-3 d-flex flex-column gap-10 justify-content-between">
+      <app-custom-input ngDefaultControl
+                        [formControl]="filter"
+                        [fullWidth]="true"
+                        label="Buscar nombre de persona"
+                        placeholder="Buscar"
+                        style="margin-top: -5px"
+      ></app-custom-input>
+      <pichincha-button (click)="onClickSearch()"
+                        class="w-100"
+                        size="large"
+                        color="primary"
+                        disabled="{{filters.invalid}}">
+        Buscar
+      </pichincha-button>
+    </div>
+
+  </div>
+
+  <ng-container *ngIf="(personReport$ | async) as dataTable; else elseError">
+    <div class="table-responsive mb-3">
+      <table aria-describedby="table-person-report"
+             class="table table-borderless">
+        <thead>
+        <tr>
+          <th *ngFor="let column of columns">
+            <pichincha-typography variant="bodyText"
+                                  color="grey"
+                                  weight="bold"
+                                  weight_color="500"
+                                  align="inherit">
+              {{column.caption}}
+            </pichincha-typography>
+          </th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr *ngFor="let persona of dataTable.personReportTos"
+            class="border-bottom">
+          <td>
+            {{persona.tribu}}
+          </td>
+          <td>
+            {{persona.leaderTribu}}
+          </td>
+          <td>
+            {{persona.leaderTechnicalTribu}}
+          </td>
+          <td>
+            {{persona.poCelula}}
+          </td>
+          <td>
+            {{persona.celula}}
+          </td>
+          <td>
+            {{persona.product}}
+          </td>
+          <td>
+            {{ persona.longName | uppercase }}
+          </td>
+          <td>
+            {{persona.email}}
+          </td>
+          <td>
+            {{persona.phoneNumber}}
+          </td>
+          <td>
+            {{persona.profile}}
+          </td>
+          <td>
+            {{persona.provider}}
+          </td>
+          <td>
+            {{persona.originProvider}}
+          </td>
+          <td>
+            {{persona.assignmentStartDate | date: 'dd-MM-YYYY'}}
+          </td>
+          <td>
+            {{persona.tentativeAssignmentEndDate | date: 'dd-MM-YYYY'}}
+          </td>
+          <td>
+            {{persona.allocationPercentage}}
+          </td>
+          <td>
+            {{persona.seniorityName | uppercase}}
+          </td>
+
+        </tr>
+        </tbody>
+
+      </table>
+
+    </div>
+
+
+    <app-tb-pagination *ngIf="showPagination"
+                       [size]="size"
+                       [current]="currentPage"
+                       [total]="dataTable.totalElements"
+                       [optionSize]="optionSize"
+                       (evtRange)="setupPagination($event)"
+    ></app-tb-pagination>
+
+
+  </ng-container>
+
+  <ng-template #elseError>
+    <div *ngIf="showSpinner; else elseSpinner" class="d-flex align-items-center justify-content-center">
+      <pichincha-spinner background="#ffdd00" border="4" color="#f3f4f7" size="96"></pichincha-spinner>
+    </div>
+    <ng-template #elseSpinner>
+      <pichincha-typography
+        variant="bodyText"
+        color="blue"
+        weight="normal"
+        weight_color="500"
+      >
+        Es posible que el enlace que seleccionaste esté roto o que se haya eliminado la página.
+      </pichincha-typography>
+    </ng-template>
+  </ng-template>
+
+</div>
+
+
+

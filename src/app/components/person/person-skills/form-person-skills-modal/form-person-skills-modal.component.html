@@ -1,0 +1,120 @@
+<div class="modal-header ">
+  <pichincha-typography
+    variant="h4"
+    color="blue"
+    weight="normal"
+    weight_color="500"
+    align="inherit"
+    class="modal-title w-100">
+    {{title}}
+  </pichincha-typography>
+  <button id="btn-close-form-person-skills" type="button" class="close" aria-label="Close" (click)="close()">&times;
+  </button>
+</div>
+
+<div id="body-modal-form-person-skills" class="modal-body">
+
+  <!--#region Filters-->
+  <div class="row mb-3">
+    <div class="col-lg-4">
+      <app-custom-input
+        ngDefaultControl
+        [(ngModel)]="searchNameSkill"
+        full-width="true"
+        type="text"
+        label=""
+        placeholder="Buscar"
+        [maxLength]=20>
+      </app-custom-input>
+    </div>
+  </div>
+  <!--#endregion-->
+
+  <!--#region Table-->
+  <div class="table-responsive mb-3">
+    <table aria-describedby="table-form-person-skills" class="table table-borderless">
+      <thead>
+      <tr>
+        <th *ngFor="let column of columns"
+            class="cell-fit">
+          <pichincha-typography variant="bodyText"
+                                color="grey"
+                                weight="bold"
+                                weight_color="500"
+                                align="inherit">
+            {{column.caption}}
+          </pichincha-typography>
+        </th>
+      </tr>
+      </thead>
+      <pichincha-typography *ngIf="skillsCatalog.length === 0; else totalElements"
+                            class="text-truncate ml-2 mt-3"
+                            variant="bodyText"
+                            color="blue"
+                            weight="normal"
+                            weight_color="500"
+                            align="inherit">
+        No hay habilidades registradas
+      </pichincha-typography>
+      <ng-template #totalElements>
+        <tr class="border-bottom"
+            *ngFor="let skill of skillsCatalog | filterSkill: searchNameSkill: searchTypeSkills">
+          <td style="width: 150px;">
+            <div class="body-text">
+              {{skill.typeSkill}}
+            </div>
+          </td>
+          <td>
+            <div class="body-text">
+              {{skill.nameSkill}}
+            </div>
+          </td>
+          <td class="d-flex align-items-center">
+            <pichincha-check-box
+              id-element="{{skill.nameSkill}}"
+              value="{{skill.id}}"
+              (clickCheck)="onClickCheckbox($event, skill)">
+            </pichincha-check-box>
+          </td>
+        </tr>
+      </ng-template>
+      <tbody>
+      </tbody>
+    </table>
+  </div>
+
+  <pichincha-typography
+    class="text-truncate mt-2"
+    variant="smallText"
+    color="darkGrey"
+    weight="normal"
+    weight_color="500"
+    style="padding-left: 2%;"
+    align="inherit">
+    Seleccionadas: {{submitSkills.length}}
+  </pichincha-typography>
+  <!--#endregion-->
+
+</div>
+
+<div class="modal-footer">
+  <pichincha-button
+    style="width: 150px"
+    size="large"
+    color="secondary"
+    (clickbutton)="close()">
+    Cancelar
+  </pichincha-button>
+  <pichincha-button
+    disabled="{{loadingOnSubmit}}"
+    style="width: 150px"
+    type="submit"
+    size="large"
+    color="primary"
+    loading="{{loadingOnSubmit}}"
+    (clickbutton)="onAddSkills()">
+    Aceptar
+  </pichincha-button>
+
+
+</div>

@@ -1,0 +1,112 @@
+<div class="d-flex flex-wrap justify-content-between align-items-center" style="gap: 20px">
+  <pichincha-typography
+      class="pl-2"
+      variant="smallText"
+      color="darkGrey"
+      weight="normal"
+      weight_color="500"
+      align="inherit">
+      {{totalElements}} Resultados
+    </pichincha-typography>
+    <div class="d-flex align-items-center" style="gap:10px">
+
+      <!--#region first option-->
+      <div class="page-item" [class.disabled]="paginationOptions.first.isDisable">
+        <a class="page-link" (click)="onFirstPageClick(true)">
+            <span aria-hidden="true">
+              <pichincha-typography
+                variant="smallText"
+                color="grey"
+                weight="normal"
+                weight_color="500"
+                align="inherit">
+               &laquo;
+            </pichincha-typography>
+            </span>
+        </a>
+      </div>
+      <!--#endregion-->
+    
+      <!--#region previous option-->
+      <div class="page-item" [class.disabled]="paginationOptions.previous.isDisable">
+        <a class="page-link" (click)="onPreviousPageClick()">
+            <span aria-hidden="true">
+              <pichincha-typography
+                variant="smallText"
+                color="grey"
+                weight="normal"
+                weight_color="500"
+                align="inherit">
+                &lsaquo;
+              </pichincha-typography>
+            </span>
+        </a>
+      </div>
+      <!--#endregion-->
+    
+      <!--#region Elements-->
+      <div *ngFor="let element of paginationElements" class="page-item"
+      >
+        <a class="page-link"
+           [ngClass]="element.isActive? 'my-active':''"
+           (click)="onElementPageClick(element.value)">
+          <pichincha-typography
+            variant="smallText"
+            color="grey"
+            weight="normal"
+            weight_color="500"
+            align="inherit">
+            {{element.value}}
+          </pichincha-typography>
+        </a>
+      </div>
+      <!--#endregion-->
+    
+      <!--#region next option-->
+      <div class="page-item" [class.disabled]="paginationOptions.next.isDisable">
+        <a class="page-link" (click)="onNextPageClick(true)">
+            <span aria-hidden="true">
+              <pichincha-typography
+                variant="smallText"
+                color="grey"
+                weight="normal"
+                weight_color="500"
+                align="inherit">
+                &rsaquo;
+              </pichincha-typography>
+            </span>
+        </a>
+      </div>
+      <!--#endregion-->
+    
+      <!--#region last option-->
+      <div class="page-item" [class.disabled]="paginationOptions.last.isDisable">
+        <a class="page-link" (click)="onLastPageClick()">
+            <span aria-hidden="true">
+              <pichincha-typography
+                variant="smallText"
+                color="grey"
+                weight="normal"
+                weight_color="500"
+                align="inherit">
+                &raquo;
+              </pichincha-typography>
+            </span>
+        </a>
+      </div>
+      <!--#endregion-->
+    
+      <!--#region number per pages-->
+      <app-p-select ngDefaultControl
+                    [formControl]="selectControl"
+                    id-element="bp-select-one"
+                    placeholder=""
+                    size="extra-small"
+                    [items]="sizeOptions"
+                    style="margin-top: 23px">
+      </app-p-select>
+      <!--#endregion-->
+    
+    </div>
+</div>
+

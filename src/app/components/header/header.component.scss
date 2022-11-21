@@ -1,0 +1,18 @@
+$blue: #0f265c;
+
+.verticalDivider {
+  border-left: 1px solid $blue;
+  height: 30px;
+}
+
+.shadows {
+  box-shadow: 0px 8px 8px -8px rgba(7, 7, 7, 0.16);
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.icon-col {
+  max-width: 3%;
+}

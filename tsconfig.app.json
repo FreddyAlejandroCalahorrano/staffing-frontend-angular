@@ -1,0 +1,33 @@
+/* To learn more about this file see: https://angular.io/config/tsconfig. */
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./out-tsc/app",
+    "types": [],
+    "paths": {
+      "@services/*": [
+        "src/app/services/*"
+      ],
+      "@dt-table/*": [
+        "src/app/common/components/table/*"
+      ],
+      "@modal/*": [
+        "src/app/common/modal/*"
+      ],
+      "@interfaces/*": [
+        "src/app/types/*"
+      ],
+      "@environments/*": [
+        "src/environments/*"
+      ]
+    }
+  },
+  "files": [
+    "src/main.ts",
+    "src/app/mf.module.ts",
+    "src/polyfills.ts"
+  ],
+  "include": [
+    "src/**/*.d.ts"
+  ]
+}

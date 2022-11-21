@@ -1,0 +1,57 @@
+<div class="modal-header">
+  <pichincha-typography
+    variant="bodyText"
+    color="blue"
+    weight="normal"
+    weight_color="500"
+    align="inherit"
+  >
+    {{title}}
+  </pichincha-typography>
+  <button id="btn-close-confirm-modal" type="button" class="close" aria-label="Close" (click)="close()">&times;</button>
+</div>
+
+<div id="body-modal-confirm-modal" class="modal-body">
+  <app-custom-input
+    id="assignmentEndtDate"
+    type="date"
+    [fullWidth]="true"
+    ngDefaultControl
+    [formControl]="assignmentEndDate"
+    label="Fecha de Salida *"
+    size="medium">
+  </app-custom-input>
+
+  <app-p-select *ngIf="showExitReasons"
+                [formControl]="exitCloce"
+                [items]="exitCloce$ | async"
+                valueExpr="id"
+                displayExpr="reasonExit"
+                placeholder="Selecciona una opción"
+                label="Motivo de Salida *"
+  ></app-p-select>
+</div>
+
+<div class="modal-footer justify-content-around row w-100  m-0">
+
+  <div class="col-5">
+    <pichincha-button
+      (clickbutton)="setResult(false)"
+      size="medium"
+      color="secondary">
+      Cancelar
+    </pichincha-button>
+  </div>
+  <div class="col-5 ">
+    <pichincha-button
+      (clickbutton)="setResult(true)"
+      size="medium"
+      color="primary"
+      [disabled]="assignmentEndDate.invalid || exitCloce.invalid">
+      Aceptar
+    </pichincha-button>
+  </div>
+
+
+</div>
+

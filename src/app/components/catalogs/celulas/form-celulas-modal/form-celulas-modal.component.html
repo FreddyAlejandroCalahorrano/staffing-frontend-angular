@@ -1,0 +1,230 @@
+<div class="modal-header ">
+  <pichincha-typography
+    variant="h4"
+    color="blue"
+    weight="normal"
+    weight_color="500"
+    align="inherit"
+    class="modal-title w-100">
+    {{titleModal}}
+  </pichincha-typography>
+  <button id="btn-close-form-celulas" type="button" class="close" aria-label="Close" (click)="close()">&times;</button>
+</div>
+
+<form [formGroup]="celulasFormGroup" (ngSubmit)="onSubmit()">
+  <div id="body-modal-form-celulas" class="modal-body scroll" style="height: 400px">
+
+    <!--#region nombre-producto-->
+    <div class="row m-0">
+      <div class="col-md text-truncate p-1 m-1">
+        <app-custom-input
+          id="inputNameProduct"
+          type="text"
+          full-width="true"
+          ngDefaultControl
+          formControlName="celulaNameProduct"
+          placeholder=""
+          label="Nombre de producto *"
+          [maxLength]=255
+          size="medium textUper">
+        </app-custom-input>
+
+        <div class="errors"
+             *ngIf="celulaNameProduct?.invalid && (celulaNameProduct?.dirty || celulaNameProduct?.touched)">
+          <pichincha-typography
+            class="text-error"
+            *ngIf="!!celulaNameProduct?.errors?.['required']"
+            variant="tinyText"
+            color="error"
+            weight="normal"
+            weight_color="500"
+            align="inherit"
+          >
+            Nombre de Producto es requerido.
+          </pichincha-typography>
+          <pichincha-typography
+            class="text-error"
+            *ngIf="!!celulaNameProduct?.errors?.['validateCelulaNameProduct']"
+            variant="tinyText"
+            color="error"
+            weight="normal"
+            weight_color="500"
+            align="inherit"
+          >
+            {{celulaNameProduct?.errors?.['validateCelulaNameProduct']}}
+          </pichincha-typography>
+        </div>
+      </div>
+    </div>
+    <!--#endregion-->
+
+    <!--#region nombre-squad-->
+    <div class="row m-0">
+      <div class="col-md text-truncate p-1 m-1">
+        <app-custom-input
+          id="inputNameSquad"
+          type="text"
+          full-width="true"
+          ngDefaultControl
+          formControlName="celulaNameSquad"
+          placeholder=""
+          label="Nombre de squad *"
+          [maxLength]=255
+          size="medium textUper">
+        </app-custom-input>
+
+        <div class="errors"
+             *ngIf="celulaNameSquad?.invalid && (celulaNameSquad?.dirty || celulaNameSquad?.touched)">
+          <pichincha-typography
+            class="text-error"
+            *ngIf="!!celulaNameSquad?.errors?.['required']"
+            variant="tinyText"
+            color="error"
+            weight="normal"
+            weight_color="500"
+            align="inherit"
+          >
+            Nombre de Squad es requerido.
+          </pichincha-typography>
+        </div>
+      </div>
+    </div>
+    <!--#endregion-->
+
+    <!--#region fecha-creacion y fecha-finalizacion-->
+    <div class="row m-0">
+      <div class="col-md text-truncate p-1 m-1">
+        <pichincha-input
+          label="Fecha de creación *"
+          id="inputCreationDate"
+          formControlName="celulaCreationDate"
+          ngDefaultControl
+          full-width="true"
+          type="date"
+          idElement="inputCreationDate">
+        </pichincha-input>
+
+
+        <div class="errors"
+             *ngIf="celulaCreationDate?.invalid && (celulaCreationDate?.dirty || celulaCreationDate?.touched)">
+          <pichincha-typography
+            class="text-error"
+            *ngIf="!!celulaCreationDate?.errors?.['required']"
+            variant="tinyText"
+            color="error"
+            weight="normal"
+            weight_color="500"
+            align="inherit"
+          >
+            La fecha de creación es requerida.
+          </pichincha-typography>
+        </div>
+      </div>
+      <div class="col-md text-truncate p-1 m-1">
+        <pichincha-input
+          id="inputFinishDate"
+          label="Fecha de finalización"
+          formControlName="celulaFinishDate"
+          ngDefaultControl
+          full-width="true"
+          type="date"
+          idElement="inputFinishDate">
+        </pichincha-input>
+      </div>
+    </div>
+    <div class="row m-0 p-1 m-1">
+      <pichincha-typography
+        class="text-error"
+        *ngIf="celulasFormGroup.hasError('ValidateDate')"
+        variant="tinyText"
+        color="error"
+        weight="normal"
+        weight_color="500"
+        align="inherit"
+      >
+        La fecha de finalización debe ser mayor a la fecha de creación.
+      </pichincha-typography>
+    </div>
+    <!--#endregion-->
+
+    <!--#region descripcion-->
+    <div class="row m-0">
+      <div class="col-md text-truncate p-1 m-1">
+        <pichincha-input
+          id="inputDescription"
+          label="Descripción"
+          formControlName="description"
+          ngDefaultControl
+          full-width="true"
+          type="text"
+          idElement="inputDescription"
+          max-length=256>
+        </pichincha-input>
+        <div class="errors"
+             *ngIf="description?.invalid && (description?.dirty || description?.touched)">
+          <pichincha-typography
+            class="text-error"
+            *ngIf="!!description?.errors?.['maxlength']"
+            variant="tinyText"
+            color="error"
+            weight="normal"
+            weight_color="500"
+            align="inherit"
+          >
+            Nombre de Producto debe tener un máximo de 255 caracteres.
+          </pichincha-typography>
+        </div>
+      </div>
+    </div>
+    <!--#endregion-->
+
+    <!--#region tribu-->
+    <div class="row m-0">
+      <div class="col-md p-1 m-1">
+        <app-p-select [items]="tribusCatalog | async"
+                      [search]="true"
+                      formControlName="idTribu"
+                      label="Tribu *"
+                      valueExpr="id"
+                      displayExpr="tribuName"
+        ></app-p-select>
+        <div class="errors"
+             *ngIf="idTribu?.invalid && (idTribu?.dirty || idTribu?.touched)">
+          <pichincha-typography
+            class="text-error"
+            *ngIf="!!idTribu?.errors?.['required']"
+            variant="tinyText"
+            color="error"
+            weight="normal"
+            weight_color="500"
+            align="inherit"
+          >
+            Debe seleccionar una Tribu.
+          </pichincha-typography>
+        </div>
+      </div>
+    </div>
+    <!--#endregion-->
+
+  </div>
+  <div class="modal-footer">
+
+    <pichincha-button
+      size="large"
+      color="secondary"
+      (clickbutton)="close()">
+      Cancelar
+    </pichincha-button>
+
+    <button class="btn-pichincha sz-large md-primary"
+            style="width: 150px;"
+            [disabled]="celulasFormGroup.invalid">
+      Aceptar
+    </button>
+
+  </div>
+</form>
+
+
+
+

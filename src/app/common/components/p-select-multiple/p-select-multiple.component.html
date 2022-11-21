@@ -1,0 +1,105 @@
+<div #container class="bp-select">
+
+  <!--#region  Label-->
+  <div class="label" *ngIf="label">
+    <pichincha-typography variant="smallText"
+                          color="darkGrey"
+                          class="label"
+                          weight="normal">
+      {{label}}
+    </pichincha-typography>
+
+    <pichincha-tooltip *ngIf="tooltip"
+                       style="margin-left: .3rem;"
+                       position="top"
+                       text-align="center">
+      <span slot="item-text"> {{tooltip}} </span>
+      <span slot="item-body">
+      <pichincha-icon size="15px"
+                      color="darkGrey"
+                      type="--sharp"
+                      weight_color="400">
+
+      </pichincha-icon>
+    </span>
+    </pichincha-tooltip>
+  </div>
+  <!--#endregion -->
+
+  <div class="bp-select__input-container {{state}}"
+       [ngClass]="{ 'no-list': !isOpen, 'focus': isOpen }"
+       tabindex="0">
+
+    <div class="bp-select__input-child {{size}} {{state}}"
+         (click)="openContainer($event)">
+
+      <label class="bp-select__list-item__label bp-select__text-overflow"
+             style="display: flex; flex-flow: row wrap; gap: 3px;">
+
+        {{ selectItems.length | i18nPlural : messageMapping }}
+
+      </label>
+
+      <pichincha-icon class="bp-select__icon-arrow-down bp-ml-4">
+        arrow_drop_down
+      </pichincha-icon>
+    </div>
+
+    <div class="bp-select__content"
+         [ngClass]="{'display-block': isOpen}">
+
+      <div class="bp-select__list-container"
+           [ngStyle]="{'display': isOpen? 'block':'none', 'padding': '0 !important'}">
+        <cdk-virtual-scroll-viewport itemSize="32"
+                                     [style.height.px]="visibleOptions * 32">
+
+          <div *cdkVirtualFor="let item of items; let idx= index"
+               id="option_{{item[valueExpr]}}"
+               class="bp-select__list-item cursor-pointer">
+
+
+            <label class="checkbox-container__slot">
+              <input (change)="handleClick(item[valueExpr], $event)"
+                     type="checkbox"
+                     [checked]="selection.isSelected(item[valueExpr])">
+              <span>
+                {{item[displayExpr]}}
+              </span>
+
+            </label>
+
+          </div>
+
+        </cdk-virtual-scroll-viewport>
+      </div>
+
+      <!--
+      <div class="options">
+        <button type="button"
+                (click)="setSelects()">
+          <pichincha-typography variant="bodyText">
+            Ok
+          </pichincha-typography>
+        </button>
+        <button type="button"
+                (click)="cancel()">
+          <pichincha-typography variant="bodyText">
+            Cancelar
+          </pichincha-typography>
+        </button>
+      </div>
+      -->
+
+    </div>
+
+  </div>
+
+  <pichincha-typography variant="tinyText"
+                        color="error"
+                        style="display: inline-block;"
+                        weight="normal"
+                        weight-color="400">
+    {{errorHelper}}
+  </pichincha-typography>
+
+</div>

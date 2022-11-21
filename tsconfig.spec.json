@@ -1,0 +1,37 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./out-tsc/spec",
+    "types": [
+      "jest"
+    ],
+    "paths": {
+      "@services/*": [
+        "src/app/services/*"
+      ],
+      "@dt-table/*": [
+        "src/app/common/components/table/*"
+      ],
+      "@modal/*": [
+        "src/app/common/modal/*"
+      ],
+      "@interfaces/*": [
+        "src/app/types/*"
+      ],
+      "@environments/*": [
+        "src/environments/*"
+      ]
+    },
+    "module": "commonjs",
+    "emitDecoratorMetadata": true,
+    "allowJs": true
+  },
+  "files": [
+    "src/app/mf.module.ts",
+    "src/polyfills.ts"
+  ],
+  "include": [
+    "src/**/*.spec.ts",
+    "src/**/*.d.ts"
+  ]
+}

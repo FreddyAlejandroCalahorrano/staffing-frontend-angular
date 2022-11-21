@@ -1,0 +1,41 @@
+@import "./src/styles/ds";
+
+.footer-pos {
+  display: block;
+  margin-top: 22%;
+}
+
+.allButFooter {
+  min-height: calc(100vh - 56px);
+}
+
+.home {
+  position: absolute;
+  top: 0;
+  left: 250px;
+  height: 100vh;
+  width: calc(100% - 250px);
+  transition: all 0.3s ease;
+}
+
+.nav-close.home {
+  left: 88px;
+  height: 100vh;
+  width: calc(100% - 88px);
+  transition: all 0.3s ease;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.xng-breadcrumb-root {
+  padding: 8px 16px;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.xng-breadcrumb-trail {
+  margin-top: 8px;
+}
+

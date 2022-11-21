@@ -1,0 +1,14 @@
+.container {
+    display: flex;
+    height: 500px;
+    flex-flow: wrap column;
+    align-items: center;
+    justify-content: center;
+    grid-gap: 50px 0;
+    margin-top: 50px;
+  }
+
+  .container app-catalogs-cards {
+    width: 400px;
+  }
+

@@ -1,0 +1,98 @@
+<div class="pt-4 pl-4 pr-5 row justify-content-between no-gutters shadows">
+  <div class="row">
+  <section
+    class="row no-gutters pointer ml-4"
+    *ngIf="isProvider"
+    (click)="returnToProviders()"
+  >
+    <pichincha-icon
+      size="32px"
+      color="blue"
+      weight_color="500"
+      type="--outlined"
+      class="mb-4"
+    >
+      arrow_back
+    </pichincha-icon>
+    <pichincha-typography
+      variant="bodyText"
+      color="blue"
+      weight="normal"
+      weight_color="500"
+      align="inherit"
+      class="header-title-size pb-4 pl-2"
+    >
+      Proveedores / Agregar proveedor
+    </pichincha-typography>
+  </section>
+
+  <section
+    class="row no-gutters pointer ml-4"
+    *ngIf="isUser"
+    (click)="returnToUsers()"
+  >
+    <pichincha-icon
+      size="32px"
+      color="blue"
+      weight_color="500"
+      type="--outlined"
+      class="mb-4"
+    >
+      arrow_back
+    </pichincha-icon>
+    <pichincha-typography
+      variant="bodyText"
+      color="blue"
+      weight="normal"
+      weight_color="500"
+      align="inherit"
+      class="header-title-size pb-4 pl-2"
+    >
+      Usuarios / Agregar usuario
+    </pichincha-typography>
+  </section>
+
+  <pichincha-brand
+    type="logo"
+    color="blue"
+    width="136"
+    class="px-4"
+    *ngIf="!isUser && !isProvider"
+  >
+  </pichincha-brand>
+  <div class="verticalDivider px-2" *ngIf="!isUser && !isProvider"></div>
+  <pichincha-typography
+    variant="bodyText"
+    color="blue"
+    weight="normal"
+    weight_color="500"
+    align="inherit"
+    class="pb-4"
+    *ngIf="!isUser && !isProvider"
+  >
+    MICRO-APP
+  </pichincha-typography>
+</div>
+  
+  <div class="row">
+  <pichincha-icon
+    size="26px"
+    color="blue"
+    weight_color="500"
+    type="--outlined"
+    class=""
+    >store</pichincha-icon
+  >
+  <pichincha-typography
+    variant="bodyText"
+    color="blue"
+    weight="normal"
+    weight_color="500"
+    align="inherit"
+    class="ml-2"
+  >
+    Staffing
+    </pichincha-typography
+  >
+</div>
+</div>

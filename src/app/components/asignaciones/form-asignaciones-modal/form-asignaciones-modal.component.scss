@@ -1,0 +1,25 @@
+.list-person:hover {
+  cursor: pointer;
+  background-color: rgb(238, 238, 238);
+}
+
+.table-responsive{
+  overflow-y: scroll;
+  max-height: calc(100vh - 400px);
+}
+
+thead tr {
+  background-color: rgb(247, 247, 247);
+}
+
+tr th {
+  vertical-align: middle;
+}
+
+.body-text {
+  max-width: 150px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  font-family: 'prelo-medium', serif;
+}

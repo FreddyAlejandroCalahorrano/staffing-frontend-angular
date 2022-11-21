@@ -1,0 +1,76 @@
+thead > tr {
+  border-bottom: 1px solid rgb(222, 227, 237);
+}
+
+thead > tr > th {
+  vertical-align: middle;
+}
+
+tbody > tr {
+  border-bottom: 1px solid rgb(222, 227, 237);
+
+  &:last-child {
+    //border-bottom: 0;
+  }
+
+  td {
+    padding: 1.3rem .75rem;
+    font-family: 'prelo-medium', serif;
+
+    /* Celda se ajusta al contenido */
+    &:not(td[data-actions]) {
+      white-space: nowrap;
+      width: 1%;
+    }
+
+    &[data-actions] {
+      /* Code Styles column Actions */
+    }
+
+  }
+
+  &:nth-child(even) {
+    background-color: var(--darkGrayishBlue50);
+  }
+
+  &:hover {
+    background-color: var(--darkGrayishBlue50);
+  }
+}
+
+.header {
+  font-family: 'prelo-medium', serif;
+  color: #2c2c30;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 20px;
+
+  &.center {
+    text-align: center;
+  }
+}
+
+
+.table-footer {
+  padding-top: 14px;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+
+  &-results {
+    color: #2c2c30;
+    font-family: 'prelo-medium', serif;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+}
+
+
+.body-text {
+  max-width: 150px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  font-family: 'prelo-medium', serif;
+}
